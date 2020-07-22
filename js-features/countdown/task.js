@@ -1,9 +1,13 @@
 const elementTimer = document.getElementById("timer");
 
-// timer in minutes
-const time = 0.1; 
+// minutes
+const time = 148940.1; 
 
+// timer in 1440 minutes maximum
 function ticTac(time) {
+  if (time > 1440) {
+    time = 1440;
+  }
   let allSeconds = time * 60;
 
   function updateTicTac() {
