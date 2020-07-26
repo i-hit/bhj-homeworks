@@ -7,13 +7,13 @@ let currentSlide = 0;
 
 next.onclick = function() {
   toggleSlide();
-  currentSlide + 1 === slides.length ? currentSlide = 0 : currentSlide++;
+  currentSlide = currentSlide + 1 === slides.length ?  0 : currentSlide + 1;
   toggleSlide();
 }
 
 prev.onclick = function() {
   toggleSlide();
-  currentSlide - 1 < 0 ? currentSlide = slides.length - 1 : currentSlide--;
+  currentSlide = currentSlide - 1 < 0 ?  slides.length - 1 : currentSlide - 1;
   toggleSlide();
 }
 
