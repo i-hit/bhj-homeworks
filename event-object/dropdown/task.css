@@ -1,3 +1,8 @@
+body {
+  display: flex;
+
+}
+
 .dropdown {
   list-style-type: none;
   padding: 0;
@@ -5,6 +10,10 @@
   position: relative;
   font-family: Helvetica;
   font-weight: 300;
+}
+
+.dropdown:not(:first-child) {
+  margin-left: 50px;
 }
 
 .dropdown__value {
