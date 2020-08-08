@@ -1,3 +1,11 @@
+p {
+  min-height: 100px;
+}
+
+p:nth-child(n + 2) {
+  margin-top: 50px;
+}
+
 .rotator__case {
   display: none;
 }
