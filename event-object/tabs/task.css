@@ -1,3 +1,12 @@
+.tabs {
+  min-height: 100px;
+  border: 1px solid black;
+}
+
+.tabs:nth-child(n + 2) {
+  margin-top: 50px;
+}
+
 .tab__navigation {
   display: flex;
   justify-content: space-around;
