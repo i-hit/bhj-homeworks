@@ -20,14 +20,10 @@ inputMessage.addEventListener("focus", (e) => {
     clearTimeout(startMessage);
   }
   e.target.placeholder = "";
-})
+});
 
 inputMessage.addEventListener("blur", (e) => {
   e.target.placeholder = "Введите ваше сообщение";
-})
-
-inputMessage.addEventListener("input", (e) => {
-  
 });
 
 inputMessage.addEventListener("keypress", (e) => {
@@ -41,7 +37,7 @@ inputMessage.addEventListener("keypress", (e) => {
       </div>
     </div>
     `;
-    scrollToBottom(messagesDiv);
+      scrollToBottom(messagesDiv);
 
       e.target.value = "";
 
@@ -63,7 +59,6 @@ function printAnswer() {
     `;
     scrollToBottom(messagesDiv);
   }, 1000);
-
 }
 
 function getAnswer() {
@@ -83,6 +78,6 @@ function getAnswer() {
   return words[index];
 }
 
-function scrollToBottom(e){
+function scrollToBottom(e) {
   e.scrollTop = e.scrollHeight - e.clientHeight;
 }
