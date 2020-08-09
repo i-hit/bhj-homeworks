@@ -1,12 +1,30 @@
 "use strict";
 
-const tabs = document.querySelectorAll(".font-size");
+const tabsSize = document.querySelector(".book__control_font-size").querySelectorAll(".font-size");
+const tabsColorText = document.querySelector(".book__control_color").querySelectorAll(".color");
+const tabsColorBg = document.querySelector(".book__control_background").querySelectorAll(".color");
 
-tabs.forEach((e) =>
+tabsSize.forEach((e) =>
   e.addEventListener("click", (e) => {
     e.preventDefault();
-    toggleClass(tabs, e.target, "font-size_active");
+    toggleClass(tabsSize, e.target, "font-size_active");
     changeFontSize(e.target);
+  })
+)
+
+tabsColorText.forEach((e) =>
+  e.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleClass(tabsColorText, e.target, "color_active");
+    changeColor(e.target);
+  })
+)
+
+tabsColorBg.forEach((e) =>
+  e.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleClass(tabsColorBg, e.target, "color_active");
+    changeColorBg(e.target);
   })
 );
 
@@ -23,3 +41,22 @@ function changeFontSize(elem) {
     : "12px";
   document.querySelector("#book").style.fontSize = fontSize;
 }
+
+function changeColor(elem) {
+  let color = !elem.dataset.color
+    ? "black"
+    : elem.dataset.color === "gray"
+    ? "gray"
+    : "whitesmoke";
+    document.querySelector("#book").style.color = color;
+}
+
+function changeColorBg(elem) {
+  let colorBg = !elem.dataset.color
+    ? "whitesmoke"
+    : elem.dataset.color === "gray"
+    ? "gray"
+    : "black";
+    document.querySelector("#book").style.backgroundColor = colorBg;
+}
+
