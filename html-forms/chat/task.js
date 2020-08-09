@@ -11,19 +11,28 @@ chatWidget.addEventListener("click", (e) => {
     e.currentTarget.classList.add("chat-widget_active");
     startMessage = setTimeout(() => {
       printAnswer();
-    }, 2000);
+    }, 30000);
   }
 });
 
-inputMessage.addEventListener("input", (e) => {
+inputMessage.addEventListener("focus", (e) => {
   if (startMessage !== undefined) {
     clearTimeout(startMessage);
   }
+  e.target.placeholder = "";
+})
+
+inputMessage.addEventListener("blur", (e) => {
+  e.target.placeholder = "Введите ваше сообщение";
+})
+
+inputMessage.addEventListener("input", (e) => {
+  
 });
 
 inputMessage.addEventListener("keypress", (e) => {
   if (e.code === "Enter") {
-    if (e.target.value.length > 0) {
+    if (inputMessage.checkValidity()) {
       messages.innerHTML += `
     <div class="message_client">
       <div class="message__time">${new Date().getHours()} : ${new Date().getMinutes()}</div>
