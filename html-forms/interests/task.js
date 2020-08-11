@@ -7,9 +7,9 @@ allCheckbox.forEach((e) =>
     const chain = e.closest("li").querySelectorAll("[type=checkbox]");
     chain.forEach((el) => {
       el.indeterminate = false;
-      el.checked = e.checked
+      el.checked = e.checked;
     });
-    
+
     const parent = e.closest("ul").closest("li");
     if (parent) {
       checkElements(e, parent);
@@ -19,24 +19,36 @@ allCheckbox.forEach((e) =>
 
 function checkElements(e, parent) {
   parent = parent.querySelector("[type=checkbox]");
-  let result = 0;
-  const chain = e.closest("ul").querySelectorAll("[type=checkbox]");
-  chain.forEach((el) => (result = el.checked ? (result += 1) : result));
+  e = e.closest("ul");
+  e.classList.add("current");
+  const chain = Array.from(
+    e.querySelectorAll(".current > li > label > [type=checkbox]")
+  );
+  e.classList.remove("current");
 
-  switch (result) {
-    case chain.length:
-      parent.checked = true;
-      parent.indeterminate = false;
-      break;
-    case 0:
-      parent.checked = false;
-      parent.indeterminate = false;
-      break;
+  const chainIndeterminate = chain.filter((el) => el.indeterminate);
+  if (chainIndeterminate.length > 0) {
+    parent.checked = false;
+    parent.indeterminate = true;
+  } else {
+    const chainChecked = chain.filter((el) => el.checked);
+    let result = chain.length - chainChecked.length;
 
-    default:
-      parent.checked = false;
-      parent.indeterminate = true;
-      break;
+    switch (result) {
+      case 0:
+        parent.checked = true;
+        parent.indeterminate = false;
+        break;
+      case chain.length:
+        parent.checked = false;
+        parent.indeterminate = false;
+        break;
+
+      default:
+        parent.checked = false;
+        parent.indeterminate = true;
+        break;
+    }
   }
 
   const grandPa = parent.closest("ul").closest("li");
@@ -44,4 +56,3 @@ function checkElements(e, parent) {
     checkElements(parent, grandPa);
   }
 }
-
