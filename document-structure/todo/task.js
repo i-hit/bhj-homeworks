@@ -22,7 +22,6 @@ dilerToDo.addEventListener("keydown", (e) => {
   }
 });
 
-
 function addTask() {
   toDo.innerHTML += `
   <div class="task">
@@ -38,8 +37,8 @@ function getRemoveToDo() {
   removeToDo = document.querySelectorAll(".task__remove");
   removeToDo.forEach((el) =>
     el.addEventListener("click", (e) => {
+      e.preventDefault();
       e.target.closest(".task").remove();
     })
   );
-
 }
