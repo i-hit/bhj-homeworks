@@ -4,7 +4,12 @@ const controlDec = document.querySelectorAll(".product__quantity-control_dec");
 const controlInc = document.querySelectorAll(".product__quantity-control_inc");
 let cart = document.querySelector(".cart__products");
 let addCart = document.querySelectorAll(".product__add");
-let removeProduct;
+
+cart.addEventListener("click", (e) => {
+  if (e.target.classList.contains("product__remove")) {
+    e.target.closest(".cart__product").remove();
+  }
+});
 
 controlDec.forEach((el) =>
   el.addEventListener("click", () => {
@@ -37,14 +42,16 @@ addCart.forEach((el) =>
     cart.closest(".cart").style.display = "block";
 
     if (!cartProduct) {
-      cart.innerHTML += `
+      cart.insertAdjacentHTML(
+        "beforeEnd",
+        `
       <div class="cart__product" data-id="${ProductId}">
       <img class="cart__product-image" src="${productImg.src}">
       <div class="cart__product-count">${count.textContent}</div>
       <a href="#" class="product__remove">&times;</a>
       </div>
-      `;
-      getRemoveProduct();
+      `
+      );
     } else {
       let cartProductCount = cartProduct.querySelector(".cart__product-count");
       cartProductCount.textContent =
@@ -57,12 +64,13 @@ addCart.forEach((el) =>
       copyImg.style.cssText = `position: absolute; left: ${productImgLeft}px; top: ${productImgTop}px;`;
       product.appendChild(copyImg);
 
+      const currentImgRect = cartProduct
+        .querySelector("img")
+        .getBoundingClientRect();
       const coordinateLeft =
-        cartProduct.querySelector("img").getBoundingClientRect().left -
-        copyImg.getBoundingClientRect().left;
+        currentImgRect.left - copyImg.getBoundingClientRect().left;
       const coordinateTop =
-        cartProduct.querySelector("img").getBoundingClientRect().top -
-        copyImg.getBoundingClientRect().top;
+        currentImgRect.top - copyImg.getBoundingClientRect().top;
 
       const start = Date.now();
       let timer = setInterval(() => {
@@ -70,7 +78,7 @@ addCart.forEach((el) =>
 
         if (timePassed >= 250) {
           copyImg.remove();
-          clearInterval(timer); // закончить анимацию через 2 секунды
+          clearInterval(timer);
           return;
         }
         draw(copyImg, "left", coordinateLeft);
@@ -79,19 +87,6 @@ addCart.forEach((el) =>
     }
   })
 );
-
-function getRemoveProduct() {
-  removeProduct = document.querySelectorAll(".product__remove");
-  removeProduct.forEach((el) =>
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      el.closest(".cart__product").remove();
-      if (!cart.childElementCount) {
-        cart.closest(".cart").style.display = "none";
-      }
-    })
-  );
-}
 
 function draw(el, prop, target) {
   el.style[prop] = parseInt(el.style[prop]) + target / 12.5 + "px";
