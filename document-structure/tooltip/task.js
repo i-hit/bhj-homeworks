@@ -16,16 +16,16 @@ targets.forEach((el) =>
       "style",
       `left: ${elRect.left}px; top: ${elRect.bottom}px`
     );
-    e.target.appendChild(tooltip);
+    e.target.insertAdjacentElement("afterEnd", tooltip);
   })
 );
 
 tooltip.addEventListener("click", (e) => {
-  e.preventDefault();
+  e.target.remove();
 });
 
 document.addEventListener("scroll", () => {
-  const parent = tooltip.closest("a");
+  const parent = tooltip.previousElementSibling;
   const parentRect = parent.getBoundingClientRect();
   tooltip.setAttribute(
     "style",
